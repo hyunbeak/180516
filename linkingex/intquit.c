@@ -23,6 +23,8 @@ int main(int argc,char *argv[]){
 			//errExit(-1);
 			return-1;
 	for(;;)
-	pause;
+			/*signal이 들어올 때 까지 무한적으로blocking 상태 */
+			/*터미널에서 kill -9 pid 번호 -9는 sig번호 (sigkill번호)*/	
+		pause;
 	return 0;
 }
