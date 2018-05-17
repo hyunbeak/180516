@@ -22,22 +22,31 @@ void sigHandler(int sig){
 	byteCount=write(fd,buffer,strlen(buffer));
 	printf("byteCount=	[%d]\n",byteCount);
 }
-
-int main(void){
-		int a=0;
-	signal(SIGUSR1,sigHandler);
-	signal(SIGQUIT,sigHandler);
-	signal(SIGINT,sigHandler);
-	 fd=open("./log.txt",O_RDWR|O_CREAT|O_TRUNC,\
+void sigHandler2(int sig){
+	printf("take a signal [%d]\n",sig);
+	close(fd);
+	exit(0);
+}
+void sigHandler3(int sig){
+	printf("take a signal [%d]\n",sig);
+	fd=open("./log.txt",O_RDWR|O_CREAT|O_TRUNC,\
 					 S_IRWXU|S_IWGRP|S_IRUSR|S_IRGRP|S_IROTH);
 
-	while(a<10){
+}
+int main(void){
+	signal(SIGUSR1,sigHandler3);
+	signal(SIGQUIT,sigHandler);
+	signal(SIGINT,sigHandler);
+	signal(SIGUSR2,sigHandler2);
+	// fd=open("./log.txt",O_RDWR|O_CREAT|O_TRUNC,\
+					 S_IRWXU|S_IWGRP|S_IRUSR|S_IRGRP|S_IROTH);
+
+	while(1){
 	
 			pause();
-			a++;
+			
 	}
 	
-	close(fd);
-	pause();
+	//close(fd);
 	return 0;
 }
