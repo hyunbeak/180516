@@ -25,7 +25,7 @@ int main(int argc,char* argv[]){
 	pid_t pid;
 	int fd,byteCount;
 	int a=0;
-	int value[3] ={SIGINT,SIGUSR1,SIGUSR2};
+	int value[3] ={SIGINT,SIGUSR1,SIGQUIT};
 	pid=atoi(argv[1]);
 	
 	printf("%d",pid);
@@ -38,7 +38,8 @@ int main(int argc,char* argv[]){
 		printf("%d, %d \n",value[0],pid);
 		a++;
 	}
-	
+	sleep(2);
+	kill(pid,SIGUSR2);
 	return 0;
 }
 
